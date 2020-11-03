@@ -28,4 +28,4 @@ jobs:
           script: |
             cd ~/FrontEnd/ && git pull origin main
             yarn install && yarn build
-            sudo cp -r ~/FrontEnd/build/* /var/www/html
+            echo ${{ secrets.PASSWORD }} | sudo -S cp -r ~/FrontEnd/build/* /var/www/html
