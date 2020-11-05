@@ -19,7 +19,7 @@ function App() {
           Learn React
         </a> */}
 
-        <video autoplay loop>
+        <video autoPlay loop>
           <source src={logo} type="video/mp4"/>
         </video>
       </header>
