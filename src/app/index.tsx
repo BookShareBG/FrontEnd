@@ -15,8 +15,8 @@ import { GlobalStyle } from 'styles/global-styles';
 import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
-import { Login } from './containers/Login/Loadable';
-import { Register } from './containers/Register/Loadable';
+import { Login } from './auth/Login/Loadable';
+import { Register } from './auth/Register/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
