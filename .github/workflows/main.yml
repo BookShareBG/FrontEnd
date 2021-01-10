@@ -28,3 +28,4 @@ jobs:
           script: |
             cd ~/FrontEnd/
             rm .eslintcache yarn.lock
+            ls -la
