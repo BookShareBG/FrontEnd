@@ -4,8 +4,8 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
+  // FormControlLabel,
+  // Checkbox,
   Link,
   Grid,
   Box,
@@ -17,6 +17,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Copyright } from '../../components/Copyright/Loadable';
+import axiosInstance from '../AxiosApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function handleSubmit(event: { preventDefault: () => void }) {
+  event.preventDefault();
+
+  const email = document.getElementById('email') as HTMLInputElement;
+  const password = document.getElementById('password') as HTMLInputElement;
+
+  if (email && password) {
+    try {
+      const response = axiosInstance.post('/token/obtain/', {
+        email: email.value,
+        password: password.value,
+      });
+
+      return response;
+    } catch (error) {
+      console.log(error.stack);
+    }
+  }
+}
+
 export function Login() {
   const classes = useStyles();
 
@@ -51,7 +72,7 @@ export function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -74,10 +95,10 @@ export function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          {/* <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            /> */}
           <Button
             type="submit"
             fullWidth

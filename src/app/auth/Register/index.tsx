@@ -4,8 +4,8 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
+  // FormControlLabel,
+  // Checkbox,
   Link,
   Grid,
   Box,
@@ -17,6 +17,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Copyright } from '../../components/Copyright/Loadable';
+import axiosInstance from '../AxiosApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function handleSubmit(event: { preventDefault: () => void }) {
+  event.preventDefault();
+
+  const firstName = document.getElementById('firstName') as HTMLInputElement;
+  const lastName = document.getElementById('lastName') as HTMLInputElement;
+  const email = document.getElementById('email') as HTMLInputElement;
+  const password = document.getElementById('password') as HTMLInputElement;
+
+  if (firstName && lastName && email && password) {
+    try {
+      const response = axiosInstance.post('/user/create/', {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        password: password.value,
+      });
+
+      return response;
+    } catch (error) {
+      console.log(error.stack);
+    }
+  }
+}
+
 export function Register() {
   const classes = useStyles();
 
@@ -51,7 +76,7 @@ export function Register() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -99,12 +124,12 @@ export function Register() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             type="submit"
