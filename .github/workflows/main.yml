@@ -26,4 +26,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            ls ~/FrontEnd/
+            ls -la ~/FrontEnd/
