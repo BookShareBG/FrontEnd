@@ -26,6 +26,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd ~/FrontEnd/ && git pull origin main
-            yarn install && yarn build
-            echo ${{ secrets.PASSWORD }} | sudo -S cp -r ~/FrontEnd/build/* /var/www/html
+            ls ~/FrontEnd/
