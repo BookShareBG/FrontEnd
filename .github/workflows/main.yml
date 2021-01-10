@@ -26,4 +26,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            ls -la ~/FrontEnd/
+            cd ~/FrontEnd/
+            rm .eslintcache yarn.lock
