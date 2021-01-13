@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://46.101.133.214/api/';
+const baseURL = 'https://bookshare.bg/api/';
 
 const axiosInstance = axios.create({
   baseURL: baseURL,

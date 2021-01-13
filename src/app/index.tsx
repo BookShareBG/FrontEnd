@@ -32,8 +32,8 @@ export function App() {
 
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/auth/login" component={Login} />
+        <Route exact path="/auth/register" component={Register} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
