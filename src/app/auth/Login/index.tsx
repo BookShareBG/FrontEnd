@@ -17,7 +17,6 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Copyright } from '../../components/Copyright/Loadable';
-import axiosInstance from '../AxiosApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -42,21 +41,23 @@ const useStyles = makeStyles(theme => ({
 function handleSubmit(event: { preventDefault: () => void }) {
   event.preventDefault();
 
-  const email = document.getElementById('email') as HTMLInputElement;
+  const username = document.getElementById('username') as HTMLInputElement;
   const password = document.getElementById('password') as HTMLInputElement;
 
-  if (email && password) {
-    try {
-      const response = axiosInstance.post('/token/obtain/', {
-        email: email.value,
-        password: password.value,
-      });
-
-      return response;
-    } catch (error) {
-      console.log(error.stack);
-    }
-  }
+  return fetch('http://localhost:8000/dj-rest-auth/login/', {
+    method: 'POST',
+    credentials: 'omit',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value,
+    }),
+  })
+    .then(resp => resp.json())
+    .catch(error => console.log('error ->', error));
 }
 
 export function Login() {
@@ -78,10 +79,10 @@ export function Login() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField

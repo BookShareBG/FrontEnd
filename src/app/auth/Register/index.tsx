@@ -17,7 +17,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { Copyright } from '../../components/Copyright/Loadable';
-import axiosInstance from '../AxiosApi';
+// import axiosInstance from '../AxiosApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -42,25 +42,27 @@ const useStyles = makeStyles(theme => ({
 function handleSubmit(event: { preventDefault: () => void }) {
   event.preventDefault();
 
-  const firstName = document.getElementById('firstName') as HTMLInputElement;
-  const lastName = document.getElementById('lastName') as HTMLInputElement;
+  const username = document.getElementById('username') as HTMLInputElement;
   const email = document.getElementById('email') as HTMLInputElement;
-  const password = document.getElementById('password') as HTMLInputElement;
+  const password1 = document.getElementById('password1') as HTMLInputElement;
+  const password2 = document.getElementById('password2') as HTMLInputElement;
 
-  if (firstName && lastName && email && password) {
-    try {
-      const response = axiosInstance.post('/user/create/', {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        password: password.value,
-      });
-
-      return response;
-    } catch (error) {
-      console.log(error.stack);
-    }
-  }
+  return fetch('http://localhost:8000/dj-rest-auth/registration/', {
+    method: 'POST',
+    credentials: 'omit',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      username: username.value,
+      email: email.value,
+      password1: password1.value,
+      password2: password2.value,
+    }),
+  })
+    .then(resp => resp.json())
+    .catch(error => console.log('error ->', error));
 }
 
 export function Register() {
@@ -78,27 +80,16 @@ export function Register() {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
+                autoComplete="uname"
+                name="username"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="username"
+                label="Username"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,8 +111,20 @@ export function Register() {
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                id="password1"
+                autoComplete="password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Confirm Password"
+                type="password"
+                id="password2"
+                autoComplete="confirm-password"
               />
             </Grid>
             {/* <Grid item xs={12}>
