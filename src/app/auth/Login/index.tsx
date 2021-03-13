@@ -56,7 +56,12 @@ function handleSubmit(event: { preventDefault: () => void }) {
       password: password.value,
     }),
   })
-    .then(resp => resp.json())
+    .then(resp => {
+      resp.json();
+      if (resp.status === 200) {
+        window.location.href = '/auth/register/profile';
+      }
+    })
     .catch(error => console.log('error ->', error));
 }
 
