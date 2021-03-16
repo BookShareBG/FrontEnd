@@ -209,7 +209,7 @@ export function Book() {
         <Typography component="h1" variant="h5">
           Add 5 books to your account
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <TextField
